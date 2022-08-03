@@ -8,8 +8,11 @@ export const Main = ({characters}) => {
         {characters.map((Element, indice) => (
           <div key={indice} className="card">
             <img src={Element.image}/>
-            <h1 > {Element.name} </h1>
-            <p>{Element.gender}</p>
+            <div className="description">
+              <h2>{Element.name} </h2>
+              <p>Gender: {Element.gender}</p>
+              <p>Location: {Element.location.name}</p>
+            </div>
           </div>
         ))}
         

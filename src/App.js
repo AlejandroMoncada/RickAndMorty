@@ -8,34 +8,32 @@ function App() {
   
   const URL = 'https://rickandmortyapi.com/api/character'
 
-    const searchCharacter = (e) => {
-      if(e.target.value === ''){
-        console.log(fetchData(URL)); 
-        
-      }else{
-        const characterNew = (e.target.value);
-        const NewURL= URL+'/?name='+characterNew;
-        console.log(NewURL);
-        return fetchData(NewURL)
-      }
-    }
-
-    const fetchData = (api) =>{
-      fetch(api)
-      .then(response => response.json())
-      .then(data => data.results ? setCharacters(data.results) : console.log("no"))
+  function searchCharacter (e){
+    if(e.target.value === ''){
+      console.log(fetchData(URL)); 
       
+    }else{
+      const characterNew = (e.target.value);
+      const NewURL= URL+'/?name='+characterNew;
+      console.log(NewURL);
+      return fetchData(NewURL)
     }
+  }
 
-  
-    useEffect(() =>{
-      fetchData(URL);
-    },[])
-  
+  const fetchData = (api) =>{
+    fetch(api)
+    .then(response => response.json())
+    .then(data => data.results ? setCharacters(data.results):console.log("No"))
+  }
+
+  useEffect(() =>{
+    console.log("useEffect");
+    fetchData(URL);
+  },[])
 
   return (
       <div className="App">
-        <Home SearchInput={searchCharacter} characters={characters} />
+        <Home change={searchCharacter} characters={characters} />
       </div>
   );
 }

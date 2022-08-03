@@ -1,9 +1,10 @@
 import React from 'react'
 
-export const Navbar = ({SearchInput}) => {
+export const Navbar = ({change}) => {
   return (
     <nav>
-      <input onChange={SearchInput} type="text" placeholder="Buscar personaje..." />
+      <h1>Search a character</h1>
+      <input onChange={change} type="text" placeholder="Search..." />
     </nav>
     
   )
