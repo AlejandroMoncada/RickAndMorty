@@ -1,24 +1,42 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { Home } from './Components/Pages/Home/Home'
 
 function App() {
+
+  const [characters,setCharacters ] = useState([]);
+  
+  const URL = 'https://rickandmortyapi.com/api/character'
+
+    const searchCharacter = (e) => {
+      if(e.target.value === ''){
+        console.log(fetchData(URL)); 
+        
+      }else{
+        const characterNew = (e.target.value);
+        const NewURL= URL+'/?name='+characterNew;
+        console.log(NewURL);
+        return fetchData(NewURL)
+      }
+    }
+
+    const fetchData = (api) =>{
+      fetch(api)
+      .then(response => response.json())
+      .then(data => data.results ? setCharacters(data.results) : console.log("no"))
+      
+    }
+
+  
+    useEffect(() =>{
+      fetchData(URL);
+    },[])
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        <Home SearchInput={searchCharacter} characters={characters} />
+      </div>
   );
 }
 
